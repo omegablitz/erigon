@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/tendermint/tendermint/crypto/merkle"
+	proto "github.com/tendermint/tendermint/proto/tendermint/crypto"
 )
 
 const ProofOpIAVLValue = "iavl:v"
@@ -32,13 +33,13 @@ func NewIAVLValueOp(key []byte, proof *RangeProof) IAVLValueOp {
 	}
 }
 
-func IAVLValueOpDecoder(pop merkle.ProofOp) (merkle.ProofOperator, error) {
+func IAVLValueOpDecoder(pop proto.ProofOp) (merkle.ProofOperator, error) {
 	panic("REMOVED")
 }
 
-func (op IAVLValueOp) ProofOp() merkle.ProofOp {
+func (op IAVLValueOp) ProofOp() proto.ProofOp {
 	bz := cdc.MustMarshalBinaryLengthPrefixed(op)
-	return merkle.ProofOp{
+	return proto.ProofOp{
 		Type: ProofOpIAVLValue,
 		Key:  op.key,
 		Data: bz,

@@ -3,8 +3,8 @@ package lightclient
 import (
 	"fmt"
 
-	iavl2 "github.com/ledgerwatch/erigon/core/vm/lightclient/iavl"
 	"github.com/tendermint/tendermint/crypto/merkle"
+	proto "github.com/tendermint/tendermint/proto/tendermint/crypto"
 )
 
 // MultiStoreProof defines a collection of store proofs in a multi-store
@@ -61,15 +61,15 @@ func NewMultiStoreProofOp(key []byte, proof *MultiStoreProof) MultiStoreProofOp 
 
 // MultiStoreProofOpDecoder returns a multi-store merkle proof operator from a
 // given proof operation.
-func MultiStoreProofOpDecoder(pop merkle.ProofOp) (merkle.ProofOperator, error) {
+func MultiStoreProofOpDecoder(pop proto.ProofOp) (merkle.ProofOperator, error) {
 	panic("REMOVED")
 }
 
 // ProofOp return a merkle proof operation from a given multi-store proof
 // operation.
-func (op MultiStoreProofOp) ProofOp() merkle.ProofOp {
+func (op MultiStoreProofOp) ProofOp() proto.ProofOp {
 	bz := Cdc.MustMarshalBinaryLengthPrefixed(op)
-	return merkle.ProofOp{
+	return proto.ProofOp{
 		Type: ProofOpMultiStore,
 		Key:  op.key,
 		Data: bz,
@@ -98,10 +98,5 @@ func (op MultiStoreProofOp) Run(args [][]byte) ([][]byte, error) {
 // XXX: This should be managed by the rootMultiStore which may want to register
 // more proof ops?
 func DefaultProofRuntime() (prt *merkle.ProofRuntime) {
-	prt = merkle.NewProofRuntime()
-	prt.RegisterOpDecoder(merkle.ProofOpSimpleValue, merkle.SimpleValueOpDecoder)
-	prt.RegisterOpDecoder(iavl2.ProofOpIAVLValue, iavl2.IAVLValueOpDecoder)
-	prt.RegisterOpDecoder(iavl2.ProofOpIAVLAbsence, iavl2.IAVLAbsenceOpDecoder)
-	prt.RegisterOpDecoder(ProofOpMultiStore, MultiStoreProofOpDecoder)
-	return
+	panic("REMOVED!")
 }

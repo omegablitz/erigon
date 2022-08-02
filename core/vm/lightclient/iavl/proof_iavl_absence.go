@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/tendermint/tendermint/crypto/merkle"
+	proto "github.com/tendermint/tendermint/proto/tendermint/crypto"
 )
 
 const ProofOpIAVLAbsence = "iavl:a"
@@ -31,13 +32,13 @@ func NewIAVLAbsenceOp(key []byte, proof *RangeProof) IAVLAbsenceOp {
 	}
 }
 
-func IAVLAbsenceOpDecoder(pop merkle.ProofOp) (merkle.ProofOperator, error) {
+func IAVLAbsenceOpDecoder(pop proto.ProofOp) (merkle.ProofOperator, error) {
 	panic("REMOVED")
 }
 
-func (op IAVLAbsenceOp) ProofOp() merkle.ProofOp {
+func (op IAVLAbsenceOp) ProofOp() proto.ProofOp {
 	bz := cdc.MustMarshalBinaryLengthPrefixed(op)
-	return merkle.ProofOp{
+	return proto.ProofOp{
 		Type: ProofOpIAVLAbsence,
 		Key:  op.key,
 		Data: bz,
