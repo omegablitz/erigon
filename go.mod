@@ -8,6 +8,7 @@ require (
 	github.com/ledgerwatch/log/v3 v3.4.1
 	github.com/ledgerwatch/secp256k1 v1.0.0
 	github.com/ledgerwatch/trackerslist v1.0.0
+	github.com/tendermint/tendermint v0.35.7
 )
 
 require (
@@ -54,7 +55,6 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.0
 	github.com/tendermint/go-amino v0.14.1
-	github.com/tendermint/tendermint v0.35.7
 	github.com/torquem-ch/mdbx-go v0.25.1-0.20220720103744-b96489e94ece
 	github.com/ugorji/go/codec v1.1.13
 	github.com/ugorji/go/codec/codecgen v1.1.13
