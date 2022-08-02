@@ -3,7 +3,6 @@ package lightclient
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto/merkle"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
@@ -39,12 +38,7 @@ type CommitInfo struct {
 
 // Hash returns the simple merkle root hash of the stores sorted by name.
 func (ci CommitInfo) Hash() []byte {
-	// TODO cache to ci.hash []byte
-	m := make(map[string][]byte, len(ci.StoreInfos))
-	for _, storeInfo := range ci.StoreInfos {
-		m[storeInfo.Name] = storeInfo.Hash()
-	}
-	return merkle.SimpleHashFromMap(m)
+	panic("REMOVED")
 }
 
 func (ci CommitInfo) CommitID() CommitID {
