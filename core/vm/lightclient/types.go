@@ -7,7 +7,6 @@ import (
 
 	"github.com/tendermint/tendermint/crypto/ed25519"
 	"github.com/tendermint/tendermint/crypto/merkle"
-	lerr "github.com/tendermint/tendermint/lite/errors"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
@@ -130,41 +129,7 @@ func (cs ConsensusState) EncodeConsensusState() ([]byte, error) {
 }
 
 func (cs *ConsensusState) ApplyHeader(header *Header) (bool, error) {
-	if uint64(header.Height) < cs.Height {
-		return false, fmt.Errorf("header height < consensus height (%d < %d)", header.Height, cs.Height)
-	}
-
-	if err := header.Validate(cs.ChainID); err != nil {
-		return false, err
-	}
-
-	trustedNextHash := cs.NextValidatorSet.Hash()
-	if cs.Height == uint64(header.Height-1) {
-		if !bytes.Equal(trustedNextHash, header.ValidatorsHash) {
-			return false, lerr.ErrUnexpectedValidators(header.ValidatorsHash, trustedNextHash)
-		}
-		err := cs.NextValidatorSet.VerifyCommit(cs.ChainID, header.Commit.BlockID, header.Height, header.Commit)
-		if err != nil {
-			return false, err
-		}
-	} else {
-		err := cs.NextValidatorSet.VerifyFutureCommit(header.ValidatorSet, cs.ChainID,
-			header.Commit.BlockID, header.Height, header.Commit)
-		if err != nil {
-			return false, err
-		}
-	}
-	validatorSetChanged := false
-	if !bytes.Equal(cs.CurValidatorSetHash, header.ValidatorsHash) || !bytes.Equal(cs.NextValidatorSet.Hash(), header.NextValidatorsHash) {
-		validatorSetChanged = true
-	}
-	// update consensus state
-	cs.Height = uint64(header.Height)
-	cs.AppHash = header.AppHash
-	cs.CurValidatorSetHash = header.ValidatorsHash
-	cs.NextValidatorSet = header.NextValidatorSet
-
-	return validatorSetChanged, nil
+	panic("REMOVED")
 }
 
 type Header struct {

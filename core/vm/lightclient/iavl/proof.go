@@ -6,7 +6,7 @@ import (
 
 	"github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/crypto/tmhash"
-	cmn "github.com/tendermint/tendermint/libs/common"
+	cmn "github.com/tendermint/tendermint/libs/bytes"
 )
 
 var (

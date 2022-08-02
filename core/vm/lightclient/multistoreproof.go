@@ -1,12 +1,10 @@
 package lightclient
 
 import (
-	"bytes"
 	"fmt"
 
 	iavl2 "github.com/ledgerwatch/erigon/core/vm/lightclient/iavl"
 	"github.com/tendermint/tendermint/crypto/merkle"
-	cmn "github.com/tendermint/tendermint/libs/common"
 )
 
 // MultiStoreProof defines a collection of store proofs in a multi-store
@@ -64,19 +62,7 @@ func NewMultiStoreProofOp(key []byte, proof *MultiStoreProof) MultiStoreProofOp 
 // MultiStoreProofOpDecoder returns a multi-store merkle proof operator from a
 // given proof operation.
 func MultiStoreProofOpDecoder(pop merkle.ProofOp) (merkle.ProofOperator, error) {
-	if pop.Type != ProofOpMultiStore {
-		return nil, cmn.NewError("unexpected ProofOp.Type; got %v, want %v", pop.Type, ProofOpMultiStore)
-	}
-
-	// XXX: a bit strange as we'll discard this, but it works
-	var op MultiStoreProofOp
-
-	err := Cdc.UnmarshalBinaryLengthPrefixed(pop.Data, &op)
-	if err != nil {
-		return nil, cmn.ErrorWrap(err, "decoding ProofOp.Data into MultiStoreProofOp")
-	}
-
-	return NewMultiStoreProofOp(pop.Key, op.Proof), nil
+	panic("REMOVED")
 }
 
 // ProofOp return a merkle proof operation from a given multi-store proof
@@ -104,24 +90,7 @@ func (op MultiStoreProofOp) GetKey() []byte {
 // the root hash if the value matches all the store's commitID's hash or an
 // error otherwise.
 func (op MultiStoreProofOp) Run(args [][]byte) ([][]byte, error) {
-	if len(args) != 1 {
-		return nil, cmn.NewError("Value size is not 1")
-	}
-
-	value := args[0]
-	root := op.Proof.ComputeRootHash()
-
-	for _, si := range op.Proof.StoreInfos {
-		if si.Name == string(op.key) {
-			if bytes.Equal(value, si.Core.CommitID.Hash) {
-				return [][]byte{root}, nil
-			}
-
-			return nil, cmn.NewError("hash mismatch for substore %v: %X vs %X", si.Name, si.Core.CommitID.Hash, value)
-		}
-	}
-
-	return nil, cmn.NewError("key %v not found in multistore proof", op.key)
+	panic("REMOVED")
 }
 
 //-----------------------------------------------------------------------------
