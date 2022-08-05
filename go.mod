@@ -8,7 +8,7 @@ require (
 	github.com/ledgerwatch/log/v3 v3.4.1
 	github.com/ledgerwatch/secp256k1 v1.0.0
 	github.com/ledgerwatch/trackerslist v1.0.0
-	github.com/tendermint/tendermint v0.35.7
+	github.com/tendermint/tendermint v0.37.0-dev
 )
 
 require (
@@ -167,8 +167,5 @@ require (
 require (
 	github.com/alecthomas/atomic v0.1.0-alpha2 // indirect
 	github.com/oasisprotocol/curve25519-voi v0.0.0-20210609091139-0a56a4bca00b // indirect
-	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5 // indirect
-	github.com/rs/zerolog v1.27.0 // indirect
-	github.com/sasha-s/go-deadlock v0.2.1-0.20190427202633-1595213edefa // indirect
 	gotest.tools/v3 v3.3.0 // indirect
 )

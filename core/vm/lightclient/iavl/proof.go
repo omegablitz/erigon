@@ -1,11 +1,8 @@
 package iavl
 
 import (
-	"bytes"
 	"fmt"
 
-	"github.com/tendermint/go-amino"
-	"github.com/tendermint/tendermint/crypto/tmhash"
 	cmn "github.com/tendermint/tendermint/libs/bytes"
 )
 
@@ -51,38 +48,7 @@ func (pin proofInnerNode) stringIndented(indent string) string {
 }
 
 func (pin proofInnerNode) Hash(childHash []byte) []byte {
-	hasher := tmhash.New()
-	buf := new(bytes.Buffer)
-
-	err := amino.EncodeInt8(buf, pin.Height)
-	if err == nil {
-		err = amino.EncodeVarint(buf, pin.Size)
-	}
-	if err == nil {
-		err = amino.EncodeVarint(buf, pin.Version)
-	}
-
-	if len(pin.Left) == 0 {
-		if err == nil {
-			err = amino.EncodeByteSlice(buf, childHash)
-		}
-		if err == nil {
-			err = amino.EncodeByteSlice(buf, pin.Right)
-		}
-	} else {
-		if err == nil {
-			err = amino.EncodeByteSlice(buf, pin.Left)
-		}
-		if err == nil {
-			err = amino.EncodeByteSlice(buf, childHash)
-		}
-	}
-	if err != nil {
-		panic(fmt.Sprintf("Failed to hash proofInnerNode: %v", err))
-	}
-
-	hasher.Write(buf.Bytes())
-	return hasher.Sum(nil)
+	panic("REMOVED")
 }
 
 //----------------------------------------
@@ -110,26 +76,5 @@ func (pln proofLeafNode) stringIndented(indent string) string {
 }
 
 func (pln proofLeafNode) Hash() []byte {
-	hasher := tmhash.New()
-	buf := new(bytes.Buffer)
-
-	err := amino.EncodeInt8(buf, 0)
-	if err == nil {
-		err = amino.EncodeVarint(buf, 1)
-	}
-	if err == nil {
-		err = amino.EncodeVarint(buf, pln.Version)
-	}
-	if err == nil {
-		err = amino.EncodeByteSlice(buf, pln.Key)
-	}
-	if err == nil {
-		err = amino.EncodeByteSlice(buf, pln.ValueHash)
-	}
-	if err != nil {
-		panic(fmt.Sprintf("Failed to hash proofLeafNode: %v", err))
-	}
-	hasher.Write(buf.Bytes())
-
-	return hasher.Sum(nil)
+	panic("REMOVED")
 }

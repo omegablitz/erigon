@@ -2,8 +2,6 @@ package lightclient
 
 import (
 	"fmt"
-
-	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 //----------------------------------------
@@ -67,14 +65,5 @@ type StoreCore struct {
 
 // Implements merkle.Hasher.
 func (si StoreInfo) Hash() []byte {
-	// Doesn't write Name, since merkle.SimpleHashFromMap() will
-	// include them via the keys.
-	bz, _ := Cdc.MarshalBinaryLengthPrefixed(si.Core) // Does not error
-	hasher := tmhash.New()
-	_, err := hasher.Write(bz)
-	if err != nil {
-		// TODO: Handle with #870
-		panic(err)
-	}
-	return hasher.Sum(nil)
+	panic("REMOVED")
 }
